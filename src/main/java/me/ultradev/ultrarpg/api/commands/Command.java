@@ -10,7 +10,6 @@ import java.lang.annotation.Target;
 public @interface Command {
     String label();
     boolean opOnly();
-    int cooldown() default 0;
     String[] aliases() default {};
     String[] arguments() default {};
 }

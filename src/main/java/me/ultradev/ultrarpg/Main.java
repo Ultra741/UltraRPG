@@ -25,7 +25,7 @@ public final class Main extends JavaPlugin {
         instance = this;
 
         log("Registering listeners...");
-        ReflectionUtil.findClasses("me.ultradev.ultrarpg.game.eventhandlers", Listener.class)
+        ReflectionUtil.findClasses("me.ultradev.ultrarpg.game.eventlisteners", Listener.class)
                         .forEach(this::registerListener);
 
         log("Registering commands...");
@@ -34,7 +34,7 @@ public final class Main extends JavaPlugin {
 
         log("Registering players...");
         for (Player player : Bukkit.getOnlinePlayers()) {
-            ServerPlayer.fetch(player);
+            player.kickPlayer("The server restarted!\nPlease rejoin.");
         }
 
     }

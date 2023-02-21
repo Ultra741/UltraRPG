@@ -32,7 +32,7 @@ public class ItemInstance {
                 .setUnbreakable(true)
                 .setLore("&7Rarity: " + item.getRarity().getName());
         if (item.getDescription() != null) {
-            builder.addLore("").addLore(StringUtil.wrap(item.getDescription(), 30));
+            builder.addLore("").addLore(StringUtil.wrap("&7" + item.getDescription(), 30));
         }
         return builder;
     }
