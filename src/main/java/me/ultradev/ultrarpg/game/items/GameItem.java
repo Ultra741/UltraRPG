@@ -1,14 +1,16 @@
-package me.ultradev.ultrarpg.items;
+package me.ultradev.ultrarpg.game.items;
 
 import me.ultradev.ultrarpg.Main;
 import me.ultradev.ultrarpg.api.items.ItemManager;
 import me.ultradev.ultrarpg.api.util.Icon;
-import org.bukkit.Material;
+import me.ultradev.ultrarpg.game.stats.Stat;
 
 public enum GameItem {
 
-    COOL_POTATO(null, "&6Cool Potato", new Icon(Material.BAKED_POTATO),
-            "Yo, that's cool!", Type.MISCELLANEOUS, SubType.NONE, Rarity.SPECIAL)
+    @ItemStat(stat = Stat.HEALTH, value = 3)
+    @ItemStat(stat = Stat.DEFENSE, value = 1)
+    IRON_TALISMAN(null, "Iron Talisman", new Icon("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNTVmZGRlYzM2NjU1ZDNiMzcxYzc5ZDYxMTMzNTQ4Nzc1NzcwODljMWZjYjFiM2Q4ZTAwYWYzMjYxMmYyNmYyOCJ9fX0="),
+            null, Type.ACCESSORY, SubType.NONE, Rarity.UNCOMMON),
 
     ;
 
@@ -62,31 +64,11 @@ public enum GameItem {
         return rarity;
     }
 
-    public enum Rarity {
-        COMMON("&fCommon"),
-        UNCOMMON("&aUncommon"),
-        RARE("&9Rare"),
-        EPIC("&5Epic"),
-        LEGENDARY("&6Legendary"),
-        MYTHIC("&dMythic"),
-        DIVINE("&bDivine"),
-        SPECIAL("&c&lSpecial")
-
-        ;
-
-        private final String name;
-        Rarity(String name) {
-            this.name = name;
-        }
-        public String getName() {
-            return name;
-        }
-    }
-
     public enum Type {
         MISCELLANEOUS,
         WEAPON,
-        ARMOR
+        ARMOR,
+        ACCESSORY
     }
 
     public enum SubType {

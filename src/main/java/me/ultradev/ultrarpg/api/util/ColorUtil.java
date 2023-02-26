@@ -17,7 +17,7 @@ public class ColorUtil {
     }
 
     public static String stripColor(String s) {
-        return s.replaceAll("&[0-9a-fA-Fk-orK-OR]()", "");
+        return s.replaceAll("&[0-9a-fA-Fk-orK-OR]", "");
     }
 
     @Nullable

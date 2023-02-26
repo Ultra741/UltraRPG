@@ -3,7 +3,7 @@ package me.ultradev.ultrarpg.game.commands;
 import me.ultradev.ultrarpg.api.commands.Command;
 import me.ultradev.ultrarpg.api.commands.CommandContext;
 import me.ultradev.ultrarpg.api.commands.ICommand;
-import me.ultradev.ultrarpg.items.GameItem;
+import me.ultradev.ultrarpg.game.items.GameItem;
 
 @Command(label = "item", opOnly = true, arguments = {"[ITEM] [amount]"})
 public class ItemCommand implements ICommand {

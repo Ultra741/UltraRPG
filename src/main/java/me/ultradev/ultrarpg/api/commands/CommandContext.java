@@ -1,6 +1,6 @@
 package me.ultradev.ultrarpg.api.commands;
 
-import me.ultradev.ultrarpg.api.player.ServerPlayer;
+import me.ultradev.ultrarpg.game.player.ServerPlayer;
 import me.ultradev.ultrarpg.api.util.MessageSender;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;

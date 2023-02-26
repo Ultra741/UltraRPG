@@ -1,6 +1,6 @@
 package me.ultradev.ultrarpg.game.eventlisteners;
 
-import me.ultradev.ultrarpg.api.player.ServerPlayer;
+import me.ultradev.ultrarpg.game.player.ServerPlayer;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;

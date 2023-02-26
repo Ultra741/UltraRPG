@@ -2,7 +2,7 @@ package me.ultradev.ultrarpg.api.commands;
 
 import me.ultradev.ultrarpg.Main;
 import me.ultradev.ultrarpg.api.util.MessageSender;
-import me.ultradev.ultrarpg.items.GameItem;
+import me.ultradev.ultrarpg.game.items.GameItem;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.command.CommandSender;

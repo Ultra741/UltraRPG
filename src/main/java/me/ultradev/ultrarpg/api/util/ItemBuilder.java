@@ -88,20 +88,20 @@ public class ItemBuilder implements IBuilder<ItemStack>, Cloneable {
     }
 
     public ItemBuilder setLore(String... lore) {
-        return setLore(Arrays.asList(lore));
-
+        return setLore(new ArrayList<>(List.of(lore)));
     }
 
     public ItemBuilder addLore(String line) {
         List<String> lore = getLore();
-        lore.addAll(Arrays.asList(line.split("\n")));
+        lore.addAll(List.of(line.split("\n")));
         return setLore(lore);
     }
 
-    public ItemBuilder addLore(String line, String... other) {
+    public ItemBuilder addLore(String... lines) {
         List<String> lore = getLore();
-        lore.addAll(Arrays.asList(line.split("\n")));
-        lore.addAll(Arrays.asList(other));
+        for (String line : lines) {
+            lore.addAll(List.of(StringUtil.wrap(line, 35).split("\n")));
+        }
         return setLore(lore);
     }
 

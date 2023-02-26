@@ -61,8 +61,7 @@ public class StringUtil {
             return result;
         }
 
-        List<String> wrappedLines = new ArrayList<>(List.of(WordUtils.wrap(s, maxLineLength).split("\n")));
-        System.out.println("Lines: " + wrappedLines);
+        List<String> wrappedLines = new ArrayList<>(List.of(WordUtils.wrap(s, maxLineLength).replaceAll("\r", "").split("\n")));
         Iterator<String> it = wrappedLines.iterator();
         int i = 1;
         String lastColor = null;

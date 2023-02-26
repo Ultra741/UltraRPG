@@ -2,7 +2,7 @@ package me.ultradev.ultrarpg;
 
 import me.ultradev.ultrarpg.api.commands.CommandManager;
 import me.ultradev.ultrarpg.api.commands.ICommand;
-import me.ultradev.ultrarpg.api.player.ServerPlayer;
+import me.ultradev.ultrarpg.game.player.ServerPlayer;
 import me.ultradev.ultrarpg.api.util.ReflectionUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -25,7 +25,7 @@ public final class Main extends JavaPlugin {
         instance = this;
 
         log("Registering listeners...");
-        ReflectionUtil.findClasses("me.ultradev.ultrarpg.game.eventlisteners", Listener.class)
+        ReflectionUtil.findClasses("me.ultradev.ultrarpg.game", Listener.class)
                         .forEach(this::registerListener);
 
         log("Registering commands...");
