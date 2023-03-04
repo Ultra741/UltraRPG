@@ -3,6 +3,7 @@ package me.ultradev.ultrarpg.api.commands;
 import me.ultradev.ultrarpg.Main;
 import me.ultradev.ultrarpg.api.util.MessageSender;
 import me.ultradev.ultrarpg.game.items.GameItem;
+import me.ultradev.ultrarpg.game.mobs.CustomMob;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.command.CommandSender;
@@ -83,6 +84,12 @@ public class CommandManager {
                                     arguments.add(item.toString());
                                 }
                             }
+                        } else if (toCheck.equalsIgnoreCase("[mob]")) {
+                            for (CustomMob mob : CustomMob.values()) {
+                                if (mob.toString().startsWith(args[args.length - 1].toUpperCase())) {
+                                    arguments.add(mob.toString());
+                                }
+                            }
                         } else if (toCheck.toLowerCase().startsWith(args[args.length - 1].toLowerCase())) {
                             arguments.add(toCheck);
                         }
@@ -92,12 +99,12 @@ public class CommandManager {
             }
         };
 
-        if (opOnly) cmd.setPermission("groundcube.op");
+        if (opOnly) cmd.setPermission("ultrarpg.op");
         cmd.setAliases(Arrays.asList(aliases));
 
         CraftServer server = (CraftServer) Main.getInstance().getServer();
         SimpleCommandMap commandMap = server.getCommandMap();
-        commandMap.register("groundcube", cmd);
+        commandMap.register("ultrarpg", cmd);
 
     }
 

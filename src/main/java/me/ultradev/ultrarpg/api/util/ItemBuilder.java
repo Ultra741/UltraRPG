@@ -147,6 +147,11 @@ public class ItemBuilder implements IBuilder<ItemStack>, Cloneable {
         return this;
     }
 
+    public ItemBuilder addItemTag(String key, double value) {
+        item = NBTEditor.addTag(item, key, value);
+        return this;
+    }
+
     public ItemBuilder removeTag(String key) {
         item = NBTEditor.removeTag(item, key);
         return this;

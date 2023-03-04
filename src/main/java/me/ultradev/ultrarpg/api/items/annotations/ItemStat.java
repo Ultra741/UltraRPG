@@ -1,4 +1,4 @@
-package me.ultradev.ultrarpg.game.items;
+package me.ultradev.ultrarpg.api.items.annotations;
 
 import me.ultradev.ultrarpg.game.stats.Stat;
 

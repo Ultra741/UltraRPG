@@ -2,9 +2,12 @@ package me.ultradev.ultrarpg;
 
 import me.ultradev.ultrarpg.api.commands.CommandManager;
 import me.ultradev.ultrarpg.api.commands.ICommand;
+import me.ultradev.ultrarpg.api.mobs.MobInstance;
+import me.ultradev.ultrarpg.api.util.NBTEditor;
 import me.ultradev.ultrarpg.game.player.ServerPlayer;
 import me.ultradev.ultrarpg.api.util.ReflectionUtil;
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -17,6 +20,7 @@ public final class Main extends JavaPlugin {
 
     private static Main instance;
     private static final Map<UUID, ServerPlayer> PLAYERS = new HashMap<>();
+    private static final Map<UUID, MobInstance> MOBS = new HashMap<>();
 
     @Override
     public void onEnable() {
@@ -24,15 +28,11 @@ public final class Main extends JavaPlugin {
 
         instance = this;
 
-        log("Registering listeners...");
-        ReflectionUtil.findClasses("me.ultradev.ultrarpg.game", Listener.class)
+        ReflectionUtil.findClasses("me.ultradev.ultrarpg.game.eventlisteners", Listener.class)
                         .forEach(this::registerListener);
-
-        log("Registering commands...");
         ReflectionUtil.findClasses("me.ultradev.ultrarpg.game.commands", ICommand.class)
                 .forEach(this::registerCommand);
 
-        log("Registering players...");
         for (Player player : Bukkit.getOnlinePlayers()) {
             player.kickPlayer("The server restarted!\nPlease rejoin.");
         }
@@ -42,6 +42,12 @@ public final class Main extends JavaPlugin {
     @Override
     public void onDisable() {
         // Plugin shutdown logic
+
+        for (Entity entity : Bukkit.getWorld("world").getEntities()) {
+            if (NBTEditor.hasString(entity, "mob_id")) {
+                entity.remove();
+            }
+        }
 
     }
 
@@ -55,6 +61,10 @@ public final class Main extends JavaPlugin {
 
     public static Map<UUID, ServerPlayer> getPlayers() {
         return PLAYERS;
+    }
+
+    public static Map<UUID, MobInstance> getMobs() {
+        return MOBS;
     }
 
     public void registerListener(Listener listener) {

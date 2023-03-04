@@ -27,6 +27,14 @@ public class NBTEditor {
         return item;
     }
 
+    public static ItemStack addTag(ItemStack item, String key, double value) {
+        ItemMeta meta = item.getItemMeta();
+        if (meta == null) return item;
+        meta.getPersistentDataContainer().set(new NamespacedKey(Main.getInstance(), key), PersistentDataType.DOUBLE, value);
+        item.setItemMeta(meta);
+        return item;
+    }
+
     public static String getString(ItemStack item, String key) {
         ItemMeta meta = item.getItemMeta();
         if (meta == null) return "";
@@ -37,6 +45,12 @@ public class NBTEditor {
         ItemMeta meta = item.getItemMeta();
         if (meta == null) return 0;
         return meta.getPersistentDataContainer().getOrDefault(new NamespacedKey(Main.getInstance(), key), PersistentDataType.INTEGER, 0);
+    }
+
+    public static double getDouble(ItemStack item, String key) {
+        ItemMeta meta = item.getItemMeta();
+        if (meta == null) return 0;
+        return meta.getPersistentDataContainer().getOrDefault(new NamespacedKey(Main.getInstance(), key), PersistentDataType.DOUBLE, 0d);
     }
 
     public static ItemStack removeTag(ItemStack item, String key) {
@@ -59,6 +73,11 @@ public class NBTEditor {
         else return meta.getPersistentDataContainer().has(new NamespacedKey(Main.getInstance(), key), PersistentDataType.INTEGER);
     }
 
+    public static boolean hasDouble(ItemStack item, String key) {
+        ItemMeta meta = item.getItemMeta();
+        if (meta == null) return false;
+        else return meta.getPersistentDataContainer().has(new NamespacedKey(Main.getInstance(), key), PersistentDataType.DOUBLE);
+    }
 
     public static void addTag(Entity entity, String key, String value) {
         entity.getPersistentDataContainer().set(new NamespacedKey(Main.getInstance(), key), PersistentDataType.STRING, value);
