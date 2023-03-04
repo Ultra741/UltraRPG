@@ -52,7 +52,7 @@ public class ItemInstance {
     public ItemBuilder format() {
         ItemBuilder builder = item.getIcon().toItemBuilder()
                 .setName(item.getRarity().getColorCode() + item.getName())
-                .addItemTag("item_id", item.toString())
+                .addTag("item_id", item.toString())
                 .hideFlags()
                 .setUnbreakable(true);
 
@@ -63,21 +63,25 @@ public class ItemInstance {
                 if (annotation instanceof ItemStats itemStats) {
                     hasStats = true;
                     for (ItemStat itemStat : itemStats.value()) {
-                        builder.addItemTag("stat." + itemStat.stat(), itemStat.value())
+                        builder.addTag("stat." + itemStat.stat(), itemStat.value())
                                 .addLore("&7" + itemStat.stat().getName() + ": &" +
                                         itemStat.stat().getColor() + "+" + NumberUtil.toFancyNumber(itemStat.value()) +
                                         itemStat.stat().getSymbol());
                     }
                 } else if (annotation instanceof ItemStat itemStat) {
                     hasStats = true;
-                    builder.addItemTag("stat." + itemStat.stat(), itemStat.value())
+                    builder.addTag("stat." + itemStat.stat(), itemStat.value())
                             .addLore("&7" + itemStat.stat().getName() + ": &" +
                                     itemStat.stat().getColor() + "+" + NumberUtil.toFancyNumber(itemStat.value()) +
                                     itemStat.stat().getSymbol());
                 } else if (item.getType().equals(GameItem.Type.WEAPON) && annotation instanceof WeaponStats weaponStats) {
                     hasStats = true;
-                    builder.addItemTag("weapon_damage", weaponStats.damage())
+                    builder.addTag("weapon_damage", weaponStats.damage())
                             .addLore("&7Damage: &c" + weaponStats.damage() + "\uD83D\uDDE1");
+                    if (weaponStats.attackRange() != -1) {
+                        builder.addTag("attack_range", weaponStats.attackRange())
+                                .addLore("&7Attack Range: &b" + weaponStats.attackRange() + "\uD83D\uDD31");
+                    }
                 }
             }
             if (hasStats) {

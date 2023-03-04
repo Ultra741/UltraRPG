@@ -70,6 +70,9 @@ public class PlayerRunnable extends BukkitRunnable {
             if (player.getHealth() > maxHealth) {
                 player.setHealth(maxHealth);
             }
+
+            player.get().setWalkSpeed((float) (0.2 + (player.getStat(Stat.SPEED) / 500f)));
+
             if (i % 40 == 0) {
                 player.setHealth(Math.min(maxHealth, player.getHealth() + (maxHealth * 0.05)));
             }

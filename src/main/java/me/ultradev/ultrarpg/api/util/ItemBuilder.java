@@ -18,7 +18,6 @@ import org.bukkit.inventory.meta.SkullMeta;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 import java.util.function.Consumer;
@@ -137,17 +136,17 @@ public class ItemBuilder implements IBuilder<ItemStack>, Cloneable {
         return this;
     }
 
-    public ItemBuilder addItemTag(String key, String value) {
+    public ItemBuilder addTag(String key, String value) {
         item = NBTEditor.addTag(item, key, value);
         return this;
     }
 
-    public ItemBuilder addItemTag(String key, int value) {
+    public ItemBuilder addTag(String key, int value) {
         item = NBTEditor.addTag(item, key, value);
         return this;
     }
 
-    public ItemBuilder addItemTag(String key, double value) {
+    public ItemBuilder addTag(String key, double value) {
         item = NBTEditor.addTag(item, key, value);
         return this;
     }

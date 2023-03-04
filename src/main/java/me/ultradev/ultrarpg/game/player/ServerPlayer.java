@@ -15,6 +15,7 @@ import me.ultradev.ultrarpg.game.stats.Stat;
 import net.md_5.bungee.api.ChatMessageType;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
@@ -55,8 +56,16 @@ public class ServerPlayer {
         return player.getName();
     }
 
+    public World getWorld() {
+        return player.getWorld();
+    }
+
     public Location getLocation() {
         return player.getLocation();
+    }
+
+    public Location getEyeLocation() {
+        return player.getEyeLocation();
     }
 
     public boolean isOnline() {

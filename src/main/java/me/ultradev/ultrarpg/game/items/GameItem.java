@@ -29,6 +29,14 @@ public enum GameItem {
     BERSERKER_HELMET(null, "Berserker Helmet", new Icon("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYWRiMWI0NTU5YmRkNDEyNzA0OTAzNzRkZmEzYzYwMmFhNDRhYjRkNTczNTgyMGYyYjQ1M2U0MjkyN2FiNjRlMSJ9fX0="),
             null, Type.ARMOR, SubType.HELMET, Rarity.EPIC),
 
+    @WeaponStats(damage = 10, attackRange = 50)
+    VERY_LONG_SWORD(null, "Very Long Sword", new Icon(Material.IRON_SWORD),
+            "Very popular in the Hypixel Pit.", Type.WEAPON, SubType.SWORD, Rarity.MYTHIC),
+
+    @ItemStat(stat = Stat.SPEED, value = 200)
+    SNEAKERS(null, "Sneakers", new Icon(Material.NETHERITE_BOOTS),
+            "Zoooooooom!", Type.ARMOR, SubType.BOOTS, Rarity.RARE),
+
     ;
 
     private final ItemManager manager;

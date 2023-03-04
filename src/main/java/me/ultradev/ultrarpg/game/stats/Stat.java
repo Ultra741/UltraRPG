@@ -5,6 +5,7 @@ public enum Stat {
     HEALTH("Health", 'c', "\u2764", 100, -1),
     DEFENSE("Defense", 'b', "\u26E8", 0, -1),
     POWER("Power", 'c', "\uD83D\uDD25", 0, -1),
+    SPEED("Speed", 'e', "\u26A1", 0, 300),
 
     ;
 

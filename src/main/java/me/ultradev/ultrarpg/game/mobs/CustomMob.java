@@ -18,6 +18,9 @@ public enum CustomMob {
             new MobEquipment(new Icon(Material.IRON_SWORD), null, new Icon(Material.GOLDEN_HELMET), new Icon(Material.CHAINMAIL_CHESTPLATE), null, null),
             30, 10),
 
+    PUNCHING_BAG(null, "&6Punching Bag", EntityType.VILLAGER,
+            null, 1000000, 1),
+
     ;
 
     private final MobManager manager;
