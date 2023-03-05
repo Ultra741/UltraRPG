@@ -3,3 +3,4 @@ version: '${version}'
 main: me.ultradev.ultrarpg.Main
 api-version: 1.18
 authors: [ UltraDev ]
+depend: [ NoteBlockAPI ]

@@ -87,12 +87,20 @@ public class NBTEditor {
         entity.getPersistentDataContainer().set(new NamespacedKey(Main.getInstance(), key), PersistentDataType.INTEGER, value);
     }
 
+    public static void addTag(Entity entity, String key, double value) {
+        entity.getPersistentDataContainer().set(new NamespacedKey(Main.getInstance(), key), PersistentDataType.DOUBLE, value);
+    }
+
     public static String getString(Entity entity, String key) {
         return entity.getPersistentDataContainer().getOrDefault(new NamespacedKey(Main.getInstance(), key), PersistentDataType.STRING, "");
     }
 
     public static int getInteger(Entity entity, String key) {
         return entity.getPersistentDataContainer().getOrDefault(new NamespacedKey(Main.getInstance(), key), PersistentDataType.INTEGER, 0);
+    }
+
+    public static double getDouble(Entity entity, String key) {
+        return entity.getPersistentDataContainer().getOrDefault(new NamespacedKey(Main.getInstance(), key), PersistentDataType.DOUBLE, 0d);
     }
 
     public static void removeTag(Entity entity, String key) {
@@ -105,6 +113,10 @@ public class NBTEditor {
 
     public static boolean hasInteger(Entity entity, String key) {
         return entity.getPersistentDataContainer().has(new NamespacedKey(Main.getInstance(), key), PersistentDataType.INTEGER);
+    }
+
+    public static boolean hasDouble(Entity entity, String key) {
+        return entity.getPersistentDataContainer().has(new NamespacedKey(Main.getInstance(), key), PersistentDataType.DOUBLE);
     }
 
 }

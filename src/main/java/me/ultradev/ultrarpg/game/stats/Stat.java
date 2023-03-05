@@ -6,6 +6,7 @@ public enum Stat {
     DEFENSE("Defense", 'b', "\u26E8", 0, -1),
     POWER("Power", 'c', "\uD83D\uDD25", 0, -1),
     SPEED("Speed", 'e', "\u26A1", 0, 300),
+    LUCK("Luck", 'a', "\u2663", 0, -1),
 
     ;
 

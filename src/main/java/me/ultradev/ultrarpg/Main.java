@@ -1,5 +1,7 @@
 package me.ultradev.ultrarpg;
 
+import com.xxmicloxx.NoteBlockAPI.model.Song;
+import com.xxmicloxx.NoteBlockAPI.utils.NBSDecoder;
 import me.ultradev.ultrarpg.api.commands.CommandManager;
 import me.ultradev.ultrarpg.api.commands.ICommand;
 import me.ultradev.ultrarpg.api.mobs.MobInstance;
@@ -12,6 +14,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -21,6 +24,7 @@ public final class Main extends JavaPlugin {
     private static Main instance;
     private static final Map<UUID, ServerPlayer> PLAYERS = new HashMap<>();
     private static final Map<UUID, MobInstance> MOBS = new HashMap<>();
+    private static final Map<String, Song> NBS_FILES = new HashMap<>();
 
     @Override
     public void onEnable() {
@@ -32,6 +36,8 @@ public final class Main extends JavaPlugin {
                         .forEach(this::registerListener);
         ReflectionUtil.findClasses("me.ultradev.ultrarpg.game.commands", ICommand.class)
                 .forEach(this::registerCommand);
+
+        NBS_FILES.put("rare_drop", NBSDecoder.parse(new File(Main.getInstance().getDataFolder(), "rare_drop.nbs")));
 
         for (Player player : Bukkit.getOnlinePlayers()) {
             player.kickPlayer("The server restarted!\nPlease rejoin.");
@@ -65,6 +71,10 @@ public final class Main extends JavaPlugin {
 
     public static Map<UUID, MobInstance> getMobs() {
         return MOBS;
+    }
+
+    public static Map<String, Song> getNbsFiles() {
+        return NBS_FILES;
     }
 
     public void registerListener(Listener listener) {

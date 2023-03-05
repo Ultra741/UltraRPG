@@ -1,8 +1,9 @@
 package me.ultradev.ultrarpg.api.items;
 
+import me.ultradev.ultrarpg.api.items.annotations.BowAttributes;
 import me.ultradev.ultrarpg.api.items.annotations.ItemStat;
 import me.ultradev.ultrarpg.api.items.annotations.ItemStats;
-import me.ultradev.ultrarpg.api.items.annotations.WeaponStats;
+import me.ultradev.ultrarpg.api.items.annotations.WeaponAttributes;
 import me.ultradev.ultrarpg.api.util.ItemBuilder;
 import me.ultradev.ultrarpg.api.util.NBTEditor;
 import me.ultradev.ultrarpg.api.util.NumberUtil;
@@ -74,21 +75,28 @@ public class ItemInstance {
                             .addLore("&7" + itemStat.stat().getName() + ": &" +
                                     itemStat.stat().getColor() + "+" + NumberUtil.toFancyNumber(itemStat.value()) +
                                     itemStat.stat().getSymbol());
-                } else if (item.getType().equals(GameItem.Type.WEAPON) && annotation instanceof WeaponStats weaponStats) {
+                } else if (item.getType().equals(GameItem.Type.WEAPON) && annotation instanceof WeaponAttributes weaponAttributes) {
                     hasStats = true;
-                    builder.addTag("weapon_damage", weaponStats.damage())
-                            .addLore("&7Damage: &c" + weaponStats.damage() + "\uD83D\uDDE1");
-                    if (weaponStats.attackRange() != -1) {
-                        builder.addTag("attack_range", weaponStats.attackRange())
-                                .addLore("&7Attack Range: &b" + weaponStats.attackRange() + "\uD83D\uDD31");
+                    builder.addTag("weapon_damage", weaponAttributes.damage())
+                            .addLore("&7Damage: &c" + weaponAttributes.damage() + "\uD83D\uDDE1");
+                    if (weaponAttributes.attackRange() != -1) {
+                        builder.addTag("attack_range", weaponAttributes.attackRange())
+                                .addLore("&7Attack Range: &b" + weaponAttributes.attackRange() + "\uD83D\uDD31");
+                    }
+                } else if (item.getSubType().equals(GameItem.SubType.BOW) && annotation instanceof BowAttributes bowAttributes) {
+                    hasStats = true;
+                    builder.addTag("bow_damage", bowAttributes.damage())
+                            .addLore("&7Damage: &c" + bowAttributes.damage() + "\uD83D\uDDE1");
+                    if (bowAttributes.arrowsShot() != -1) {
+                        builder.addTag("arrows_shot", bowAttributes.arrowsShot())
+                                .addLore("&7Arrows Shot: &9" + bowAttributes.arrowsShot() + "\uD83C\uDFF9");
                     }
                 }
             }
             if (hasStats) {
                 builder.addLore("");
             }
-        } catch (NoSuchFieldException ignored) {
-        }
+        } catch (NoSuchFieldException ignored) {}
 
         if (item.getDescription() != null) {
             builder.addLore("&7" + item.getDescription(), "");

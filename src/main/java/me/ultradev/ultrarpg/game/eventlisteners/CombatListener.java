@@ -8,10 +8,7 @@ import me.ultradev.ultrarpg.game.player.ServerPlayer;
 import me.ultradev.ultrarpg.game.stats.Stat;
 import org.bukkit.FluidCollisionMode;
 import org.bukkit.Location;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.EntityType;
-import org.bukkit.entity.Mob;
-import org.bukkit.entity.Player;
+import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
@@ -82,12 +79,16 @@ public class CombatListener implements Listener {
             MobInstance mobInstance = Main.getMobs().getOrDefault(ent.getUniqueId(), null);
             if (mobInstance != null) {
                 double damage = CombatManager.calculateDamage(player, mobInstance);
-                double newHealth = mobInstance.getHealth() - damage;
-                if (newHealth <= 0) {
+                double newHealth = Math.max(0, mobInstance.getHealth() - damage);
+                mobInstance.getDamageMap().put(player.getUniqueId(),
+                        mobInstance.getDamageMap().getOrDefault(player.getUniqueId(), 0d) + Math.min(mobInstance.getHealth(), damage));
+                if (newHealth == 0) {
                     mobInstance.setHealth(0);
                     mobInstance.updateName();
+                    mobInstance.getEntity().setNoDamageTicks(0);
                     mobInstance.getEntity().damage(1);
                     Main.getMobs().remove(mobInstance.getEntity().getUniqueId());
+                    mobInstance.rollDrops();
                 } else {
                     mobInstance.setHealth(newHealth);
                     mobInstance.updateName();
@@ -121,6 +122,45 @@ public class CombatListener implements Listener {
                     }
                 }
             }
+        }
+    }
+
+    @EventHandler
+    public void onShootBow(EntityShootBowEvent e) {
+        Entity ent = e.getEntity();
+        if (ent instanceof Player bukkitPlayer) {
+            Projectile proj = (Projectile) e.getProjectile();
+            if (proj instanceof Arrow arrow) {
+                if (e.getBow() == null) return;
+                int extraArrows = NBTEditor.getInteger(e.getBow(), "arrows_shot") - 1;
+                if (extraArrows >= 1) {
+                    ServerPlayer player = ServerPlayer.fetch(bukkitPlayer);
+                    int extraLeftArrows = (int) Math.floor(extraArrows / 2d);
+                    for (int i = 0; i < extraLeftArrows; i++) {
+                        Arrow newArrow = bukkitPlayer.getWorld().spawn(bukkitPlayer.getEyeLocation(), Arrow.class);
+                        newArrow.setVelocity(arrow.getVelocity().rotateAroundY(Math.toRadians((i + 1) * (20d / extraLeftArrows))));
+                        newArrow.setShooter(bukkitPlayer);
+                        newArrow.setCritical(e.getForce() == 1);
+                        CombatManager.applyArrowData(newArrow, e.getBow(), player);
+                    }
+                    int extraRightArrows = (int) Math.ceil(extraArrows / 2d);
+                    for (int i = 0; i < extraRightArrows; i++) {
+                        Arrow newArrow = bukkitPlayer.getWorld().spawn(bukkitPlayer.getEyeLocation(), Arrow.class);
+                        newArrow.setVelocity(arrow.getVelocity().rotateAroundY(Math.toRadians((i + 1) * (-20d / extraLeftArrows))));
+                        newArrow.setShooter(bukkitPlayer);
+                        newArrow.setCritical(e.getForce() == 1);
+                        CombatManager.applyArrowData(newArrow, e.getBow(), player);
+                    }
+                }
+            }
+        }
+    }
+
+    @EventHandler
+    public void onProjHit(ProjectileHitEvent e) {
+        e.getEntity().remove();
+        if (e.getHitEntity() != null) {
+
         }
     }
 

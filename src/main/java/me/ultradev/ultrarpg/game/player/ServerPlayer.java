@@ -1,5 +1,6 @@
 package me.ultradev.ultrarpg.game.player;
 
+import com.xxmicloxx.NoteBlockAPI.songplayer.RadioSongPlayer;
 import me.ultradev.ultrarpg.Main;
 import me.ultradev.ultrarpg.api.items.ItemInstance;
 import me.ultradev.ultrarpg.api.mobs.MobInstance;
@@ -82,6 +83,13 @@ public class ServerPlayer {
 
     public void sendActionbar(String message) {
         player.spigot().sendMessage(ChatMessageType.ACTION_BAR, new ComponentBuilder(message).build());
+    }
+
+    public void playNBS(String file) {
+        RadioSongPlayer rps = new RadioSongPlayer(Main.getNbsFiles().get(file));
+        rps.addPlayer(player);
+        rps.setPlaying(true);
+        rps.setAutoDestroy(true);
     }
 
     public PlayerInventory getInventory() {

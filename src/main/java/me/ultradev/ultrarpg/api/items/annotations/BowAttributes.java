@@ -7,7 +7,7 @@ import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)
-public @interface WeaponStats {
+public @interface BowAttributes {
     int damage();
-    int attackRange() default -1;
+    int arrowsShot() default -1;
 }
