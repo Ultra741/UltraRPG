@@ -7,7 +7,6 @@ import me.ultradev.ultrarpg.api.mobs.MobInstance;
 import me.ultradev.ultrarpg.api.mobs.MobManager;
 import me.ultradev.ultrarpg.api.util.Icon;
 import me.ultradev.ultrarpg.api.util.NBTEditor;
-import me.ultradev.ultrarpg.game.items.GameItem;
 import me.ultradev.ultrarpg.game.mobs.undead.SkeletonSoldier;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -18,8 +17,7 @@ public enum CustomMob {
 
     SKELETON_SOLDIER(new SkeletonSoldier(), "Skeleton Soldier", EntityType.SKELETON,
             30, 10,
-            new MobEquipment(new Icon(Material.IRON_SWORD), null, new Icon(Material.GOLDEN_HELMET), new Icon(Material.CHAINMAIL_CHESTPLATE), null, null),
-            new MobDrop(GameItem.FUNNY_BONE, 1, 1)),
+            new MobEquipment(new Icon(Material.IRON_SWORD), null, new Icon(Material.GOLDEN_HELMET), new Icon(Material.CHAINMAIL_CHESTPLATE), null, null)),
 
     PUNCHING_BAG(null, "&6Punching Bag", EntityType.VILLAGER,
             1000000, 1, null),

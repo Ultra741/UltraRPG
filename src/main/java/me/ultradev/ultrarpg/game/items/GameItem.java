@@ -38,21 +38,19 @@ public enum GameItem {
     SNEAKERS(null, "Sneakers", new Icon(Material.NETHERITE_BOOTS),
             "Zoooooooom!", Type.ARMOR, SubType.BOOTS, Rarity.RARE),
 
-    FUNNY_BONE(null, "Funny Bone", new Icon(Material.BONE, true),
-            null, Type.MISCELLANEOUS, SubType.NONE, Rarity.COMMON),
-
     @WeaponAttributes(damage = 25, attackRange = 5)
     @ItemStat(stat = Stat.DEFENSE, value = 50)
     @ItemStat(stat = Stat.SPEED, value = 100)
-    @ItemStat(stat = Stat.LUCK, value = 500)
+    @ItemStat(stat = Stat.LUCK, value = 999999)
     EXCALIBUR(null, "Excalibur", new Icon(Material.IRON_SWORD),
             null, Type.WEAPON, SubType.SWORD, Rarity.MYTHIC),
 
-    @BowAttributes(damage = 999, arrowsShot = 3)
+    @BowAttributes(damage = 999)
     COOL_BOW(null, "Cool Bow", new Icon(Material.BOW),
             "Cool.", Type.WEAPON, SubType.BOW, Rarity.RARE),
 
-    @BowAttributes(damage = 1000000, arrowsShot = 20)
+    @BowAttributes(damage = 5, arrowsShot = 20)
+    @ItemStat(stat = Stat.LUCK, value = 123456)
     HYPER_BOW(null, "Hyperbow", new Icon(Material.BOW),
             null, Type.WEAPON, SubType.BOW, Rarity.MYTHIC),
 

@@ -27,16 +27,19 @@ public class PlayerRunnable extends BukkitRunnable {
         }
 
         if (i % 5 == 0) {
+            for (Stat stat : Stat.values()) {
+                player.updateStat(stat, StatSource.HELD_ITEM, 0);
+                player.updateStat(stat, StatSource.EQUIPPED_HELMET, 0);
+                player.updateStat(stat, StatSource.EQUIPPED_CHESTPLATE, 0);
+                player.updateStat(stat, StatSource.EQUIPPED_LEGGINGS, 0);
+                player.updateStat(stat, StatSource.EQUIPPED_BOOTS, 0);
+            }
             ItemInstance heldItem = player.getHeldItem();
             if (heldItem != null) {
                 if (heldItem.getItem().getType().equals(GameItem.Type.WEAPON)) {
                     for (Map.Entry<Stat, Double> entry : heldItem.getStats().entrySet()) {
                         player.updateStat(entry.getKey(), StatSource.HELD_ITEM, entry.getValue());
                     }
-                }
-            } else {
-                for (Stat stat : Stat.values()) {
-                    player.updateStat(stat, StatSource.HELD_ITEM, 0);
                 }
             }
 
@@ -52,16 +55,6 @@ public class PlayerRunnable extends BukkitRunnable {
                     };
                     for (Map.Entry<Stat, Double> entry : armorPiece.getStats().entrySet()) {
                         player.updateStat(entry.getKey(), source, entry.getValue());
-                    }
-                } else {
-                    StatSource source = switch (i) {
-                        case 0 -> StatSource.EQUIPPED_BOOTS;
-                        case 1 -> StatSource.EQUIPPED_LEGGINGS;
-                        case 2 -> StatSource.EQUIPPED_CHESTPLATE;
-                        default -> StatSource.EQUIPPED_HELMET;
-                    };
-                    for (Stat stat : Stat.values()) {
-                        player.updateStat(stat, source, 0);
                     }
                 }
             }

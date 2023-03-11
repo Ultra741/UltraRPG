@@ -1,6 +1,8 @@
 package me.ultradev.ultrarpg.api.mobs;
 
+import me.ultradev.ultrarpg.api.combat.DamageInstance;
 import me.ultradev.ultrarpg.api.util.ColorUtil;
+import me.ultradev.ultrarpg.api.util.NBTEditor;
 import me.ultradev.ultrarpg.api.util.NumberUtil;
 import me.ultradev.ultrarpg.game.mobs.CustomMob;
 import me.ultradev.ultrarpg.game.player.ServerPlayer;
@@ -55,13 +57,15 @@ public class MobInstance {
                 (shorten ? NumberUtil.toShortNumber(mob.getHealth()) : mob.getHealth())));
     }
 
-    public void rollDrops() {
+    public void rollDrops(DamageInstance data) {
         for (Map.Entry<UUID, Double> entry : damageMap.entrySet()) {
             Player bukkitPlayer = Bukkit.getPlayer(entry.getKey());
             if (bukkitPlayer == null || !bukkitPlayer.isOnline()) continue;
             ServerPlayer player = ServerPlayer.fetch(bukkitPlayer);
             for (MobDrop drop : mob.getDrops()) {
-                double chance = drop.getChance() * (entry.getValue() / mob.getHealth()) * (1 + (player.getStat(Stat.LUCK) / 100));
+                double luck = data.getAttackType().equals(DamageInstance.Type.MELEE) ? player.getStat(Stat.LUCK) :
+                        NBTEditor.getDouble(data.getProjectile(), "stat.luck");
+                double chance = drop.getChance() * (entry.getValue() / mob.getHealth()) * (1 + (luck / 100));
                 if (NumberUtil.rollChance(chance)) {
                     for (int i = 0; i < drop.getAmount(); i++) {
                         player.giveItem(drop.getItem());
@@ -69,13 +73,13 @@ public class MobInstance {
                     String message = drop.getItem().getRarity().getColorCode() +
                             (drop.getAmount() > 1 ? drop.getAmount() + "x " : "") +
                             drop.getItem().getName() + " &7(" + NumberUtil.formatDecimal(drop.getChance()) + "% chance)";
-                    if (chance <= 0.01) {
+                    if (drop.getChance() <= 0.01) {
                         player.sendMessage("&c&lINSANELY RARE DROP! " + message);
-                    } else if (chance <= 0.1) {
+                    } else if (drop.getChance() <= 0.1) {
                         player.sendMessage("&3&lINCREDIBLY RARE DROP! " + message);
-                    } else if (chance <= 1) {
+                    } else if (drop.getChance() <= 1) {
                         player.sendMessage("&9&lVERY RARE DROP! " + message);
-                    } else if (chance <= 10) {
+                    } else if (drop.getChance() <= 10) {
                         player.sendMessage("&b&lRARE DROP! " + message);
                     }
                     player.playNBS("rare_drop");
